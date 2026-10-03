@@ -6,4 +6,5 @@ build-dist:
 run-dist: build-dist
 	./build/install/app/bin/app
 
-say-hello:  @echo "Hello, World!"
+say-hello:
+    @echo "Hello, World!"

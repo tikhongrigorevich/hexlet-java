@@ -6,3 +6,4 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: make say-hello
+        working-directory: ./app
