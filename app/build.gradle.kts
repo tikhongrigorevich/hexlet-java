@@ -1,5 +1,13 @@
 plugins {
-    id("java")
+    application
+    id("se.patrikerdes.use-latest-versions") version "0.2.19"
+    id("io.github.ben-manes.versions") version "0.61.0"
+    checkstyle
+    id("org.sonarqube") version "7.4.0.8496"
+}
+
+application {
+    mainClass.set("hexlet.code.App")
 }
 
 group = "hexlet.code"
@@ -9,12 +17,23 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+checkstyle {
+    toolVersion = "10.12.0"
 }
 
-tasks.test {
-    useJUnitPlatform()
+dependencies {
+    checkstyle("com.puppycrawl.tools:checkstyle:${checkstyle.toolVersion}")
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "tikhongrigorevich_java-project-61")
+        property("sonar.organization", "tikhongrigorevich")
+        property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.coverage.exclusions", "**/*")
+    }
+}
+
+tasks.getByName<JavaExec>("run") {
+    standardInput = System.`in`
 }
